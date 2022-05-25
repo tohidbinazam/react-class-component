@@ -1,0 +1,39 @@
+{
+  "students": [
+    {
+      "name": "Tohid",
+      "email": "tohid@gmail.com",
+      "number": "8801994249463",
+      "photo": "https://cdn.powerpackelements.com/wp-content/uploads/2017/11/Team-memeber-01.png",
+      "id": 1
+    },
+    {
+      "name": "Zafir",
+      "email": "zafir@yahoo.com",
+      "number": "8801975361527",
+      "photo": "https://symmetricsgroup.com/wp-content/uploads/2017/06/Warren-Edit-e1499274450548-500x500.jpg",
+      "id": 2
+    },
+    {
+      "name": "Indro Zid",
+      "email": "indrozid@gmail.com",
+      "number": "8801596713245",
+      "photo": "https://www.team.gsamdani.com/wp-content/uploads/2016/05/tm6.jpg",
+      "id": 3
+    },
+    {
+      "name": "Ali hayder",
+      "email": "ali@gmail.com",
+      "number": "8801425367548",
+      "photo": "https://www.team.gsamdani.com/wp-content/uploads/2016/05/tm6.jpg",
+      "id": 4
+    },
+    {
+      "number": "8801748382575",
+      "email": "gulyboy@gmail.com",
+      "name": "Gulyboy",
+      "photo": "http://www.team.gsamdani.com/wp-content/uploads/2016/05/tm3.jpg",
+      "id": 5
+    }
+  ]
+}
