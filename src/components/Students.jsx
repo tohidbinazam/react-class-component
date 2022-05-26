@@ -12,13 +12,14 @@ export class Students extends Component {
                 type : '',
                 status : false
             },
-            inputs : {}
+            inputs : {},
+            dataId : null
         }
     }
   render() {
 
     
-    const { students, modal, inputs } = this.state
+    const { students, modal, inputs, dataId } = this.state
     const { type, status } = modal
 
     // Student add modal show
@@ -36,43 +37,46 @@ export class Students extends Component {
     const handleHideModal = () => {
         this.setState((preState) => ({
             ...preState,
-            modal : {
-                type : '',
-                status : false
-            }
+            modal : { status : false },
+            inputs : {}
         }))
     }
 
     // Student data view
-    const handleViewModal = () => {
+    const handleViewModal = (id) => {
+        let student = students.find(data => data.id === id)
         this.setState((preState) => ({
             ...preState,
             modal : {
                 type : 'view',
                 status : true
-            }
+            },
+            inputs : student
         }))
     }
 
     // Student data delete
-    const handleDeleteModal = () => {
+    const handleDeleteModal = (id) => {
         this.setState((preState) => ({
             ...preState,
             modal : {
                 type : 'delete',
                 status : true
-            }
+            },
+            dataId : id
         }))
     }
 
     // Student data Edit
-    const handleEditModal = () => {
+    const handleEditModal = (id) => {
+        let student = students.find(data => data.id === id)
         this.setState((preState) => ({
             ...preState,
             modal : {
                 type : 'edit',
                 status : true
-            }
+            },
+            inputs : student
         }))
     }
 
@@ -85,11 +89,23 @@ export class Students extends Component {
         e.preventDefault()
         try{
             axios.post('http://localhost:5050/students', inputs).then(() => {
-                this.setState((preState) => ({
-                    ...preState,
-                    modal : { status : false },
-                    inputs : {}
-                }))
+                handleHideModal()
+            })
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    // Student Data update
+    const formUpdate = (obj, e) => {
+        this.setState((preState) => ({
+            ...preState,
+            inputs : obj
+        }))
+        e.preventDefault()
+        try{
+            axios.patch(`http://localhost:5050/students/${inputs.id}`, inputs).then(() => {
+                handleHideModal()
             })
         }catch(err){
             console.log(err);
@@ -114,7 +130,7 @@ export class Students extends Component {
         <Container>
             <Row className='justify-content-center'>
                 <Col md='8'>
-                    <StudentsModal formSubmit={ formSubmit } type={ type } status={ status } handleHideModal={ handleHideModal } inputs={ inputs }/>
+                    <StudentsModal formUpdate={ formUpdate } dataId={ dataId } formSubmit={ formSubmit } type={ type } status={ status } handleHideModal={ handleHideModal } inputs={ inputs }/>
                     <Card>
                         <Card.Header>
                             <Button onClick={ handleShowModal }>Add New Student</Button>
@@ -143,9 +159,9 @@ export class Students extends Component {
                                                 <td><img style={{ width:'50px', objectFit:'cover' }} src={ data.photo } alt={ data.id } /></td>
                                                 <td>
                                                     <ButtonGroup>
-                                                        <Button onClick={ handleViewModal }>View</Button>
-                                                        <Button onClick={ handleEditModal } variant='warning'>Edit</Button>
-                                                        <Button onClick={ handleDeleteModal } variant='danger'>Delete</Button>
+                                                        <Button onClick={ () => handleViewModal(data.id) }>View</Button>
+                                                        <Button onClick={ () => handleEditModal(data.id) } variant='warning'>Edit</Button>
+                                                        <Button onClick={ () => handleDeleteModal(data.id) } variant='danger'>Delete</Button>
                                                     </ButtonGroup>   
                                                 </td>
                                             </tr>
